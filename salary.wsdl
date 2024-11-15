@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://localhost/wsams/server.php" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="SalaryService" targetNamespace="http://localhost/wsams/server.php">
+  <types>
+    <xsd:schema targetNamespace="http://localhost/wsams/server.php">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+    </xsd:schema>
+  </types>
+  <portType name="SalaryServicePort">
+    <operation name="__construct">
+      <input message="tns:__constructIn"/>
+    </operation>
+    <operation name="calculateSalary">
+      <documentation>Fungsi untuk menghitung gaji berdasarkan data kehadiran</documentation>
+      <input message="tns:calculateSalaryIn"/>
+      <output message="tns:calculateSalaryOut"/>
+    </operation>
+  </portType>
+  <binding name="SalaryServiceBinding" type="tns:SalaryServicePort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="__construct">
+      <soap:operation soapAction="http://localhost/wsams/server.php#__construct"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/wsams/server.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/wsams/server.php"/>
+      </output>
+    </operation>
+    <operation name="calculateSalary">
+      <soap:operation soapAction="http://localhost/wsams/server.php#calculateSalary"/>
+      <input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/wsams/server.php"/>
+      </input>
+      <output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/wsams/server.php"/>
+      </output>
+    </operation>
+  </binding>
+  <message name="__constructIn"/>
+  <message name="calculateSalaryIn">
+    <part name="month" type="xsd:int"/>
+    <part name="year" type="xsd:int"/>
+  </message>
+  <message name="calculateSalaryOut">
+    <part name="return" type="xsd:float"/>
+  </message>
+  <service name="SalaryServiceService">
+    <port name="SalaryServicePort" binding="tns:SalaryServiceBinding">
+      <soap:address location="http://localhost/wsams/server.php"/>
+    </port>
+  </service>
+</definitions>
